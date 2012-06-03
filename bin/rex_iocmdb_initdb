@@ -1,0 +1,76 @@
+#!perl
+
+#
+# (c) Jan Gehring <jan.gehring@gmail.com>
+# 
+# vim: set ts=3 sw=3 tw=0:
+# vim: set expandtab:
+   
+use strict;
+use warnings;
+
+use Rex::IO::CMDB::Args;
+use Mojo::UserAgent;
+
+my $init_schema = qq~
+{"views": {
+   "servers": {
+       "map": "function(doc) {\\n  if(doc.type == \\"server\\") {\\n    emit(doc.name, doc);\\n  }\\n}"
+   },
+   "services": {
+       "map": "function(doc) {\\n  if(doc.type == \\"service\\") {\\n    emit(doc.name, doc);\\n  }\\n}"
+   }
+}}
+~;
+
+sub help {
+   print "--------------------------------------------------------------------------------\n";
+   print " Initialize Rex IO CMDB\n";
+   print "    --db-name=<dbname>                 create a new database dbname\n";
+   print "    --server=<couchdb-server>[:port]   the couchdb server and port\n";
+}
+
+sub ua {
+   return Mojo::UserAgent->new;
+}
+
+
+getopts(
+   help => \&help,
+   "db-name" => sub {
+      my ($db_name) = @_;
+
+      my %opts = Rex::IO::CMDB::Args->get;
+      my $server = $opts{server};
+      $server ||= "localhost";
+
+      if($server !~ m/:/) {
+         $server .= ":5984";
+      }
+
+      my $tx = ua->put("http://$server/$db_name");
+
+      if($tx->success) {
+         print "[*] Database created.\n";
+
+         $tx = ua->put("http://$server/$db_name/_design/all", { "Content-Type" => "application/json" }, $init_schema);
+         if($tx->success) {
+            print "[*] Views created.\n";
+         }
+         else {
+            print "[!] Error creating views.\n";
+            exit 2;
+         }
+      }
+      else {
+         print "[!] Error creating database.\n";
+         exit 1;
+      }
+
+      exit 0;
+   },
+);
+
+
+
+

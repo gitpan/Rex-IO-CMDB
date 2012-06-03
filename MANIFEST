@@ -1,0 +1,14 @@
+bin/rex_iocmdb
+bin/rex_iocmdb_initdb
+lib/Rex/IO/CMDB.pm
+lib/Rex/IO/CMDB/Args.pm
+lib/Rex/IO/CMDB/Driver.pm
+lib/Rex/IO/CMDB/Driver/CouchDB.pm
+lib/Rex/IO/CMDB/Mojolicious/Plugin/CMDB.pm
+lib/Rex/IO/CMDB/Server.pm
+lib/Rex/IO/CMDB/Service.pm
+Makefile.PL
+MANIFEST			This list of files
+t/basic.t
+META.yml                                 Module YAML meta-data (added by MakeMaker)
+META.json                                Module JSON meta-data (added by MakeMaker)
