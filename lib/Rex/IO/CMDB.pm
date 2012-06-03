@@ -4,7 +4,9 @@
 # vim: set ts=3 sw=3 tw=0:
 # vim: set expandtab:
    
-=head1 Rex::IO::CMDB - Configuration Management Database
+=head1 NAME
+
+Rex::IO::CMDB - Configuration Management Database
 
 This is a simple Database holding information about services and servers.
 
@@ -75,7 +77,7 @@ You can also define an other Listen Port (default is 3000)
 package Rex::IO::CMDB;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = "0.0.2";
+our $VERSION = "0.0.3";
 
 # This method will run once at server start
 sub startup {

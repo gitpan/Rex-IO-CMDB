@@ -25,4 +25,4 @@ requires:
   Mojolicious: 2.98
 resources:
   repository: https://github.com/krimdomu/rex-io-cmdb
-version: v0.0.2
+version: v0.0.3
