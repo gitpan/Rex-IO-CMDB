@@ -75,7 +75,7 @@ You can also define an other Listen Port (default is 3000)
 package Rex::IO::CMDB;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = "0.0.1";
+our $VERSION = "0.0.2";
 
 # This method will run once at server start
 sub startup {
